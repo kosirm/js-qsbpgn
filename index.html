@@ -1,0 +1,30 @@
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-org-chart@3.0.1"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-flextree@2.1.2/build/d3-flextree.js"></script>
+
+<div class="chart-container"></div>
+
+<script>
+  const data = [
+    { customId: 1, customParentId: null, customName: 'node1' },
+    { customId: 2, customParentId: 1, customName: 'node2' },
+    { customId: 3, customParentId: 1, customName: 'node3' },
+    { customId: 4, customParentId: 2, customName: 'node4' },
+  ];
+
+  new d3.OrgChart()
+    .nodeId((dataItem) => dataItem.customId)
+    .parentNodeId((dataItem) => dataItem.customParentId)
+    .nodeWidth((node) => 100)
+    .nodeHeight((node) => 100)
+    .nodeContent((node) => {
+      return `<div 
+        style="background-color:aqua;width:${node.width}px;height:${node.height}px"
+      > 
+           ${node.data.customName}
+       </div>`;
+    })
+    .container('.chart-container')
+    .data(data)
+    .render();
+</script>
